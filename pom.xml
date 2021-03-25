@@ -98,7 +98,16 @@
         <dependency>
             <groupId>com.github.MicroSChat</groupId>
             <artifactId>common-library</artifactId>
-            <version>-076c98439c-1</version>
+            <version>-e30b8946d0-1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.amqp</groupId>
+            <artifactId>spring-rabbit-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

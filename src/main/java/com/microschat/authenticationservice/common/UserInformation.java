@@ -25,7 +25,7 @@ public class UserInformation implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
 
     private String hash;
