@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
+import static com.microschat.authenticationservice.register.RegistrationMessagingConfiguration.REGISTRATION_USER_AUTH_QUEUE_NAME;
+
 @Service
 @Slf4j
 public class RegistrationService {
@@ -27,10 +29,10 @@ public class RegistrationService {
         this.userInformationRepository = userInformationRepository;
     }
 
-    @RabbitListener(queues = ConnectivityConstant.REGISTRATION_USER_AUTH_QUEUE_NAME)
+    @RabbitListener(queues = REGISTRATION_USER_AUTH_QUEUE_NAME)
     public void receiveRegistrationMessage(UserInformationMessage userInformationMessage){
         log.info("Received registration request on queue {}: {}",
-                ConnectivityConstant.REGISTRATION_USER_AUTH_QUEUE_NAME,
+                REGISTRATION_USER_AUTH_QUEUE_NAME,
                 userInformationMessage);
 
         saveNewUser(userInformationMessage);
