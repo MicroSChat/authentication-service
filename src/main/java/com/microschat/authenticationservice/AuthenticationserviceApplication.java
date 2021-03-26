@@ -8,8 +8,10 @@ import org.springframework.amqp.core.TopicExchange;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.microschat.*")
+@ComponentScan(basePackages = "com.microschat.*")
 public class AuthenticationserviceApplication {
 
     public static void main(String[] args) {
