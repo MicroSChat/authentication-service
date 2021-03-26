@@ -10,7 +10,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.microschat.authenticationservice.register.RegistrationMessagingConfiguration.REGISTRATION_USER_QUEUE_NAME;
+import static com.microschat.authenticationservice.connectivity.MessagingConfiguration.REGISTRATION_USER_QUEUE_NAME;
 
 @Service
 @Slf4j

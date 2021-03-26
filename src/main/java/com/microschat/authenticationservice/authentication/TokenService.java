@@ -52,7 +52,8 @@ public class TokenService {
             }
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            throw new AuthenticationException(String.format("Expired or invalid JWT token %s", token));
+//            throw new AuthenticationException(String.format("Expired or invalid JWT token %s", token));
+            return false;
         }
     }
 }

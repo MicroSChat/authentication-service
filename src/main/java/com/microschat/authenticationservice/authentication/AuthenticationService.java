@@ -3,11 +3,16 @@ package com.microschat.authenticationservice.authentication;
 import com.microschat.authenticationservice.common.PasswordHasher;
 import com.microschat.authenticationservice.common.UserInformation;
 import com.microschat.authenticationservice.common.UserInformationRepository;
+import com.microschat.authenticationservice.connectivity.MessagingConfiguration;
 import com.microschat.commonlibrary.UserInformationMessage;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class AuthenticationService {
 
     private final TokenService tokenService;
@@ -19,7 +24,9 @@ public class AuthenticationService {
         this.userInformationRepository = userInformationRepository;
     }
 
-    public String authenticateUser(UserInformationMessage userInformationMessage){
+    @RabbitListener(queues = MessagingConfiguration.AUTHENTICATION_USER_QUEUE_NAME)
+        public String authenticateUser(UserInformationMessage userInformationMessage){
+        log.info("Got authentication request {}", userInformationMessage);
         UserInformation userInformation = userInformationRepository
                 .findByUsername(userInformationMessage.getUsername())
                 .filter(user -> PasswordHasher.matches(userInformationMessage.getPassword(), user.getPassword()))
@@ -28,6 +35,7 @@ public class AuthenticationService {
         return tokenService.createToken(userInformationMessage.getUsername(), userInformation.getRoles());
     }
 
+    @RabbitListener(queues = MessagingConfiguration.VALIDATION_TOKEN_QUEUE_NAME)
     public boolean validateToken(String token){
         return tokenService.validateToken(token);
     }
