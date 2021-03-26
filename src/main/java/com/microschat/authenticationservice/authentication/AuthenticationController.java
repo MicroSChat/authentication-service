@@ -15,11 +15,6 @@ public class AuthenticationController {
         this.authenticationService = authenticationService;
     }
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<String> authenticateUser(@RequestBody UserInformationMessage userInformationMessage){
-        return ResponseEntity.ok(authenticationService.authenticateUser(userInformationMessage));
-    }
-
     @PostMapping("/validate")
     public ResponseEntity<Boolean> validateToken(@RequestBody String token){
         return ResponseEntity.ok(authenticationService.validateToken(token));
