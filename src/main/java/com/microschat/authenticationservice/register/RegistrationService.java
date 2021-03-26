@@ -4,19 +4,13 @@ import com.microschat.authenticationservice.common.PasswordHasher;
 import com.microschat.authenticationservice.common.UserInformation;
 import com.microschat.authenticationservice.common.UserInformationRepository;
 import com.microschat.commonlibrary.UserInformationMessage;
-import com.microschat.commonlibrary.connectivity.ConnectivityConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.AmqpRejectAndDontRequeueException;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
-import static com.microschat.authenticationservice.register.RegistrationMessagingConfiguration.REGISTRATION_USER_AUTH_QUEUE_NAME;
+import static com.microschat.authenticationservice.register.RegistrationMessagingConfiguration.REGISTRATION_USER_QUEUE_NAME;
 
 @Service
 @Slf4j
@@ -29,10 +23,10 @@ public class RegistrationService {
         this.userInformationRepository = userInformationRepository;
     }
 
-    @RabbitListener(queues = REGISTRATION_USER_AUTH_QUEUE_NAME)
+    @RabbitListener(queues = REGISTRATION_USER_QUEUE_NAME)
     public void receiveRegistrationMessage(UserInformationMessage userInformationMessage){
         log.info("Received registration request on queue {}: {}",
-                REGISTRATION_USER_AUTH_QUEUE_NAME,
+                REGISTRATION_USER_QUEUE_NAME,
                 userInformationMessage);
 
         saveNewUser(userInformationMessage);

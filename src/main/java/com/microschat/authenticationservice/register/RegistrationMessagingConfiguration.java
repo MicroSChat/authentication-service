@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RegistrationMessagingConfiguration {
 
-    public final static String REGISTRATION_USER_AUTH_QUEUE_NAME = "register-user-auth";
+    public final static String REGISTRATION_USER_QUEUE_NAME = "register-user-auth";
 
     @Bean
     public TopicExchange exchange(){
@@ -18,7 +18,7 @@ public class RegistrationMessagingConfiguration {
     @Bean
     Declarables declarables(){
         TopicExchange topicExchange = new TopicExchange(ConnectivityConstant.APPLICATION_EXCHANGE);
-        Queue registrationQueue = new Queue(REGISTRATION_USER_AUTH_QUEUE_NAME, false);
+        Queue registrationQueue = new Queue(REGISTRATION_USER_QUEUE_NAME, false);
 
         return new Declarables(topicExchange,
                 registrationQueue,
