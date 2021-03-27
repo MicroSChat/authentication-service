@@ -37,6 +37,8 @@ public class AuthenticationService {
 
     @RabbitListener(queues = MessagingConfiguration.VALIDATION_TOKEN_QUEUE_NAME)
     public boolean validateToken(String token){
-        return tokenService.validateToken(token);
+        boolean valid = tokenService.validateToken(token);
+        log.info("Received token validation request for token {}, returning {}", token, valid);
+        return valid;
     }
 }
